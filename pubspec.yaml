@@ -1,0 +1,27 @@
+name: nature_daily
+description: >
+  Pacote Flutter 100% offline com conteúdo educativo sobre ecossistemas
+  naturais (imagens .webp locais + textos), sem dependência de internet
+  ou Gradle.
+version: 0.1.0
+homepage:
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: ^3.0.0
+
+flutter:
+  # Declara toda a pasta de imagens de uma vez. Basta adicionar novos
+  # arquivos .webp dentro de assets/images/ que eles já ficam disponíveis,
+  # sem precisar editar este arquivo novamente.
+  assets:
+    - assets/images/
