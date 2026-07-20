@@ -57,7 +57,13 @@ class NatureDailyCard extends StatelessWidget {
               item.assetPath,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) => Container(
-                color: theme.colorScheme.surfaceContainerHighest,
+                // Era `surfaceContainerHighest` (só existe a partir do
+                // Flutter 3.22). Trocado por `surfaceVariant`, disponível
+                // desde versões bem mais antigas do Material 3 — compatível
+                // com o Flutter 3.19.6 fixado no CI do app que consome este
+                // pacote. Visualmente é a cor equivalente (superfície neutra
+                // de destaque usada em placeholders/containers).
+                color: theme.colorScheme.surfaceVariant,
                 alignment: Alignment.center,
                 child: Icon(
                   Icons.image_not_supported_outlined,
