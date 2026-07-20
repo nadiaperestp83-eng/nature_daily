@@ -1,12 +1,5 @@
 import '../models/ecossistema.dart';
 
-/// Dataset de exemplo com 10 itens reais. Para atingir os 100 itens do
-/// motor cíclico, basta seguir o mesmo padrão abaixo, adicionando novas
-/// instâncias de [Ecossistema] e os respectivos arquivos .webp em
-/// `assets/images/`.
-///
-/// O [NatureDailyEngine] funciona com qualquer tamanho de lista, então o
-/// app pode ser testado com estes 10 itens antes de completar os 100.
 const List<Ecossistema> ecossistemasData = [
   Ecossistema(
     id: 'floresta_amazonica',
