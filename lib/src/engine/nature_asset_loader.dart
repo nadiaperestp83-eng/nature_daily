@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart' show rootBundle, AssetManifest;
 
 import '../models/ecossistema.dart';
 
@@ -8,6 +6,11 @@ import '../models/ecossistema.dart';
 /// `.webp` presentes em [pastaAssets] (declarada no `pubspec.yaml`) e
 /// gera uma lista de [Ecossistema] a partir deles — sem precisar
 /// cadastrar nome de arquivo nenhum manualmente no código.
+///
+/// Usa a API oficial [AssetManifest.loadFromAssetBundle], que lida
+/// corretamente com o formato de manifest usado pela versão atual do
+/// Flutter (não depende de ler "AssetManifest.json" na mão, que ficou
+/// obsoleto nas versões mais recentes do SDK).
 ///
 /// Isso resolve o problema de manter `ecossistemas_data.dart` sincronizado
 /// com os nomes reais dos arquivos: basta colocar o `.webp` dentro de
@@ -22,12 +25,12 @@ Future<List<Ecossistema>> carregarEcossistemasDosAssets({
   String pastaAssets = 'assets/images/',
   Map<String, EcossistemaMetadado>? metadados,
 }) async {
-  final manifestJson = await rootBundle.loadString('AssetManifest.json');
-  final Map<String, dynamic> manifest =
-      jsonDecode(manifestJson) as Map<String, dynamic>;
+  final assetManifest = await AssetManifest.loadFromAssetBundle(rootBundle);
+  final todosOsAssets = assetManifest.listAssets();
 
-  final caminhosWebp = manifest.keys
-      .where((path) => path.startsWith(pastaAssets) && path.endsWith('.webp'))
+  final caminhosWebp = todosOsAssets
+      .where((path) =>
+          path.startsWith(pastaAssets) && path.toLowerCase().endsWith('.webp'))
       .toList()
     ..sort();
 
