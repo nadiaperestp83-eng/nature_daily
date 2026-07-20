@@ -7,5 +7,6 @@ library nature_daily;
 
 export 'src/models/ecossistema.dart';
 export 'src/engine/nature_daily_engine.dart';
+export 'src/engine/nature_asset_loader.dart';
 export 'src/data/ecossistemas_data.dart';
 export 'src/widgets/nature_daily_card.dart';
