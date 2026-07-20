@@ -129,13 +129,20 @@ void main() {
     test('encontra ao menos 1 imagem .webp real em assets/images/', () async {
       final lista = await carregarEcossistemasDosAssets();
 
+      // Log de diagnóstico: aparece no output do CI mesmo se o teste passar,
+      // útil para conferir exatamente o que foi descoberto.
+      // ignore: avoid_print
+      print('Assets .webp encontrados (${lista.length}): '
+          '${lista.map((e) => e.assetPath).toList()}');
+
       expect(
         lista,
         isNotEmpty,
         reason:
-            'Nenhum .webp encontrado em assets/images/. Confirme que o '
-            'pubspec.yaml declara "assets/images/" e que existe ao menos '
-            'um arquivo .webp real dentro dessa pasta no repositório.',
+            'Nenhum .webp encontrado em assets/images/. Possíveis causas: '
+            '(1) os arquivos na pasta não têm extensão .webp de verdade; '
+            '(2) o pubspec.yaml não está declarando "assets/images/" '
+            'corretamente; (3) a pasta está vazia ou com outro nome.',
       );
 
       for (final item in lista) {
