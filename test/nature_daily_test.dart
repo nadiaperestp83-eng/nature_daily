@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nature_daily/nature_daily.dart';
 
@@ -118,6 +120,40 @@ void main() {
       expect(ecossistemasData, isNotEmpty);
       final ids = ecossistemasData.map((e) => e.id).toSet();
       expect(ids.length, ecossistemasData.length);
+    });
+  });
+
+  group('carregarEcossistemasDosAssets (descoberta automática)', () {
+    TestWidgetsFlutterBinding.ensureInitialized();
+
+    test('encontra ao menos 1 imagem .webp real em assets/images/', () async {
+      final lista = await carregarEcossistemasDosAssets();
+
+      expect(
+        lista,
+        isNotEmpty,
+        reason:
+            'Nenhum .webp encontrado em assets/images/. Confirme que o '
+            'pubspec.yaml declara "assets/images/" e que existe ao menos '
+            'um arquivo .webp real dentro dessa pasta no repositório.',
+      );
+
+      for (final item in lista) {
+        expect(
+          File(item.assetPath).existsSync(),
+          isTrue,
+          reason: 'Caminho gerado não bate com um arquivo real: '
+              '${item.assetPath}',
+        );
+      }
+    });
+
+    test('funciona corretamente dentro do NatureDailyEngine', () async {
+      final lista = await carregarEcossistemasDosAssets();
+      final engine = NatureDailyEngine(lista);
+
+      expect(engine.totalItens, lista.length);
+      expect(engine.getConteudoDeHoje(), isA<Ecossistema>());
     });
   });
 }
