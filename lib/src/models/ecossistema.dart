@@ -30,7 +30,6 @@ class Ecossistema {
   })  : assert(id != '', 'id não pode ser vazio'),
         assert(assetPath != '', 'assetPath não pode ser vazio');
 
-  /// Cria uma instância a partir de um [Map] (útil para JSON/serialização).
   factory Ecossistema.fromMap(Map<String, dynamic> map) {
     return Ecossistema(
       id: map['id'] as String,
@@ -41,7 +40,6 @@ class Ecossistema {
     );
   }
 
-  /// Converte a instância para [Map] (útil para JSON/serialização).
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -52,7 +50,6 @@ class Ecossistema {
     };
   }
 
-  /// Retorna uma cópia com os campos informados substituídos.
   Ecossistema copyWith({
     String? id,
     String? assetPath,
